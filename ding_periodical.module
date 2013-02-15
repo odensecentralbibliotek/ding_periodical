@@ -28,11 +28,23 @@ function theme_ding_periodical_issues($variables) {
     $iss = array();
     foreach ($issues as $key => $availability) {
       $issue = $key;
+      $issue_holding = '';
       // check user
       if ($availability['reservable'] && module_exists('ding_periodical_reservation')) {
-        $issue .= ' ' . ding_periodical_reservation_button($availability['local_id'], $volume, $key, $variables['elements']['#entity']);
+        $issue_holding = ' ' . ding_periodical_reservation_button($availability['local_id'], $volume, $key, $variables['elements']['#entity']);
       }
-      $iss[] = $issue;
+      $issue_holding .= '<h2>Holdings</h2>';
+      $issue_holding .= '<p>' . t('We have @count reservable copies.', array('@count' => $availability['reservable_count'])) . '</p>';
+      $issue_holding .= '<ul class="holdings">';
+      foreach ($availability['holdings'] as $holding) {
+        $issue_holding .= '<li>' . join(' → ', $holding['location']) . ' (' . $holding['available_count'] . ' copies home)</li>';
+      }
+      $issue_holding .= '</ul>';
+      $iss[] = array(
+        'data' => '<div class="' . drupal_html_class('ding_periodical_fold').'">' . $issue . '</div>',
+        'children' => array($issue_holding),
+        'class' => array(drupal_html_class('ding_periodical_foldable')),
+      );
     }
 
     $vol = array(
