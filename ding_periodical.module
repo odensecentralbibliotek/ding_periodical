@@ -37,7 +37,9 @@ function theme_ding_periodical_issues($variables) {
       $issue_holding .= '<p>' . t('We have @count reservable copies.', array('@count' => $availability['reservable_count'])) . '</p>';
       $issue_holding .= '<ul class="holdings">';
       foreach ($availability['holdings'] as $holding) {
-        $issue_holding .= '<li>' . join(' → ', $holding['location']) . ' (' . $holding['available_count'] . ' copies home)</li>';
+        $issue_holding .= '<li';
+        $issue_holding .= ($holding['available_count'] > 0) ? ' class=available' : ' class=unavailable';
+        $issue_holding .= '>' . join(' → ', $holding['location']) . ' (' . $holding['available_count'] . ' copies home)</li>';
       }
       $issue_holding .= '</ul>';
       $iss[] = array(
