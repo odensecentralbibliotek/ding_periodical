@@ -69,7 +69,7 @@ function ding_periodical_field_formatter_view($entity_type, $entity, $field, $in
       return $element;
     }
 
-    $availability = ding_provider_invoke('availability', 'holdings', array($entity->provider_id));
+    $availability = ding_provider_invoke('availability', 'holdings', array($entity->provider_id),  FALSE);
     if (isset($availability[$entity->provider_id])) {
       $issues = $availability[$entity->provider_id]['issues'];
       // array_walk($issues, 'asort') complains about 'Notice: A non
