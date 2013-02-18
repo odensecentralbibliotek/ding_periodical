@@ -28,6 +28,7 @@ function theme_ding_periodical_issues($variables) {
     $iss = array();
     foreach ($issues as $key => $availability) {
       $issue = $key;
+      $issue_holding = '';
       // check user
       if ($availability['reservable'] && module_exists('ding_periodical_reservation')) {
         $issue_holding = ' ' . ding_periodical_reservation_button($availability['local_id'], $volume, $key, $variables['elements']['#entity']);
