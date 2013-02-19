@@ -34,12 +34,15 @@ function theme_ding_periodical_issues($variables) {
         $issue_holding = ' ' . ding_periodical_reservation_button($availability['local_id'], $volume, $key, $variables['elements']['#entity']);
       }
       $issue_holding .= '<h2>Holdings</h2>';
-      $issue_holding .= '<p>' . t('We have @count reservable copies.', array('@count' => $availability['reservable_count'])) . '</p>';
+      $issue_holding .= '<p>' . format_plural($availability['total_count'], 'We have 1 copy (@reservable_count reservable).', 'We have @count copies (@reservable_count reservable).', array('@reservable_count' => $availability['reservable_count'])) . '</p>';
       $issue_holding .= '<ul class="holdings">';
       foreach ($availability['holdings'] as $holding) {
         $issue_holding .= '<li';
         $issue_holding .= ($holding['available_count'] > 0) ? ' class=available' : ' class=unavailable';
-        $issue_holding .= '>' . join(' → ', $holding['location']) . ' (' . $holding['available_count'] . ' copies home)</li>';
+        $issue_holding .= '>';
+        $issue_holding .= join(' → ', $holding['location']);
+        $issue_holding .= format_plural($holding['available_count'], '(1 copy home)', '(@count copies home)');
+        $issue_holding .= '</li>';
       }
       $issue_holding .= '</ul>';
       $iss[] = array(
