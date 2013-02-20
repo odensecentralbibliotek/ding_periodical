@@ -33,7 +33,7 @@ function theme_ding_periodical_issues($variables) {
       if ($availability['reservable'] && module_exists('ding_periodical_reservation')) {
         $issue_holding = ' ' . ding_periodical_reservation_button($availability['local_id'], $volume, $key, $variables['elements']['#entity']);
       }
-      $issue_holding .= '<h2>Holdings</h2>';
+      $issue_holding .= '<h2>' . t('Holdings') . '</h2>';
       $issue_holding .= '<p>' . format_plural($availability['total_count'], 'We have 1 copy (@reservable_count reservable).', 'We have @count copies (@reservable_count reservable).', array('@reservable_count' => $availability['reservable_count'])) . '</p>';
       $issue_holding .= '<ul class="holdings">';
       foreach ($availability['holdings'] as $holding) {
