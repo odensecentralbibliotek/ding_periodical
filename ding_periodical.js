@@ -7,7 +7,7 @@
     });
     if($('.field-name-ding-periodical-issues .itemlist ').is(":hidden"))
     {
-        $('.field-name-ding-periodical-issues .itemlist ').toggle();
+        $('.field-name-ding-periodical-issues .itemlist ').css('display','block');
     }
     
   });   
