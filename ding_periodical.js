@@ -5,9 +5,9 @@
       $(this).next().toggle();
       e.preventDefault();
     });
-    if($('.field-name-ding-periodical-issues .itemlist ').is(":hidden"))
+    if($('.field-name-ding-periodical-issues li').children('.item-list').is(":hidden"))
     {
-        $('.field-name-ding-periodical-issues .itemlist ').css('display','block');
+        $('.field-name-ding-periodical-issues li').children('.item-list').css('display','block');
     }
     
   });   
