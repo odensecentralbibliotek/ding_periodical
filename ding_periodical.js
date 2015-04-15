@@ -5,5 +5,10 @@
       $(this).next().toggle();
       e.preventDefault();
     });
+    if($('.field-name-ding-periodical-issues .itemlist ').is(":hidden"))
+    {
+        $('.field-name-ding-periodical-issues .itemlist ').toggle();
+    }
+    
   });   
 }(jQuery));
