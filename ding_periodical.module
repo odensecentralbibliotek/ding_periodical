@@ -24,6 +24,7 @@ function ding_periodical_theme() {
  */
 function theme_ding_periodical_issues($variables) {
   $items = array();
+  watchdog('Periodical availability Log:',json_encode($variables['elements']['#issues']), array(), WATCHDOG_NOTICE, $link = NULL);
   foreach ($variables['elements']['#issues'] as $volume => $issues) {
     $iss = array();
     foreach ($issues as $key => $availability) {
