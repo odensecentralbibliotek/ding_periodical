@@ -27,30 +27,59 @@ function theme_ding_periodical_issues($variables) {
   watchdog('Periodical availability Log:',json_encode($variables['elements']['#issues']), array(), WATCHDOG_NOTICE, $link = NULL);
   foreach ($variables['elements']['#issues'] as $volume => $issues) {
     $iss = array();
-    foreach ($issues as $key => $availability) {
-      $issue = $key;
-      $issue_holding = '';
-      // check user
-      if ($availability['reservable'] && module_exists('ding_periodical_reservation')) {
-        $issue_holding = ' ' . ding_periodical_reservation_button($availability['local_id'], $volume, $key, $variables['elements']['#entity']);
-      }
-      $issue_holding .= '<h2>' . t('Holdings') . '</h2>';
-      $issue_holding .= '<p>' . format_plural($availability['total_count'], 'We have 1 copy (@reservable_count reservable).', 'We have @count copies (@reservable_count reservable).', array('@reservable_count' => $availability['reservable_count'])) . '</p>';
-      $issue_holding .= '<ul class="holdings">';
-      foreach ($availability['holdings'] as $holding) {
-        $issue_holding .= '<li';
-        $issue_holding .= ($holding['available_count'] > 0) ? ' class=available' : ' class=unavailable';
-        $issue_holding .= '>';
-        $issue_holding .= join(' → ', $holding['location']);
-        $issue_holding .= format_plural($holding['available_count'], '(1 copy home)', '(@count copies home)');
-        $issue_holding .= '</li>';
-      }
-      $issue_holding .= '</ul>';
-      $iss[] = array(
-        'data' => '<div class="' . drupal_html_class('ding_periodical_fold').'">' . $issue . '</div>',
-        'children' => array($issue_holding),
-        'class' => array(drupal_html_class('ding_periodical_foldable')),
-      );
+    foreach ($issues as $name => $data) {
+        $issue = $name;
+        $total_count = 0;
+        $reserveable_count = 0;
+        $issue_holding = '';
+        $location_html = '';
+        $reserve_btn = "";
+        foreach($data['placement'] as $key => $availability)
+        {
+            if($availability['reservable'])
+            {
+                $reserveable_count += 1;
+                if($reserveable_count == 1 && module_exists('ding_periodical_reservation'))
+                {
+                    $reserve_btn = ' ' . ding_periodical_reservation_button($data['local_id'], $volume, $key, $variables['elements']['#entity']);
+                }
+            }
+            // check user
+            
+            
+            /*foreach ($availability as $holding) {
+              $issue_holding .= '<li';
+              $issue_holding .= ($holding['available_count'] > 0) ? ' class=available' : ' class=unavailable';
+              $issue_holding .= '>';
+              $issue_holding .= join(' → ', $holding['location']);
+              $issue_holding .= format_plural($holding['available_count'], '(1 copy home)', '(@count copies home)');
+              $issue_holding .= '</li>';
+            }*/
+              $location_html .= '<li';
+              $location_html .= ($availability['available_count'] > 0) ? ' class=available' : ' class=unavailable';
+              $location_html .= '>';
+              $location_html .= $availability['location'];
+              $location_html .= format_plural($availability['available_count'], '(1 copy home)', '(@count copies home)');
+              $location_html .= '</li>';
+              
+           
+            $total_count += 1;
+        }
+        if($reserveable_count > 0)
+        {
+         $issue_holding .= $reserve_btn;   
+        }
+        $issue_holding .= '<h2>' . t('Holdings') . '</h2>';
+        $issue_holding .= '<p>' . format_plural($total_count, 'We have 1 copy (@reservable_count reservable).', 'We have @count copies (@reservable_count reservable).', array('@reservable_count' => $reserveable_count)) . '</p>';
+        $issue_holding .= '<ul class="holdings">';
+        $issue_holding .= $location_html;
+        $issue_holding .= '</ul>';
+         $iss[] = array(
+              'data' => '<div class="' . drupal_html_class('ding_periodical_fold').'">' . $issue . '</div>',
+              'children' => array($issue_holding),
+              'class' => array(drupal_html_class('ding_periodical_foldable')),
+            );
+
     }
 
     $vol = array(
