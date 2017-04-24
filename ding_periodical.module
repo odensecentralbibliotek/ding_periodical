@@ -44,17 +44,6 @@ function theme_ding_periodical_issues($variables) {
                     $reserve_btn = ' ' . ding_periodical_reservation_button($data['local_id'], $volume, $key, $variables['elements']['#entity']);
                 }
             }
-            // check user
-            
-            
-            /*foreach ($availability as $holding) {
-              $issue_holding .= '<li';
-              $issue_holding .= ($holding['available_count'] > 0) ? ' class=available' : ' class=unavailable';
-              $issue_holding .= '>';
-              $issue_holding .= join(' → ', $holding['location']);
-              $issue_holding .= format_plural($holding['available_count'], '(1 copy home)', '(@count copies home)');
-              $issue_holding .= '</li>';
-            }*/
               $location_html .= '<li';
               $location_html .= ($availability['available_count'] > 0) ? ' class=available' : ' class=unavailable';
               $location_html .= '>';
