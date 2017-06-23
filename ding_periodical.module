@@ -25,7 +25,14 @@ function ding_periodical_theme() {
 function theme_ding_periodical_issues($variables) {
   $items = array();
   watchdog('Periodical availability Log:',json_encode($variables['elements']['#issues']), array(), WATCHDOG_NOTICE, $link = NULL);
+  
+  krsort($variables['elements']['#issues'],SORT_STRING);
+  $tmp = $variables['elements']['#issues'];
+  foreach ($tmp as $volume => $issues) {
+      $test = ksort($variables['elements']['#issues'][$volume],SORT_NATURAL);
+  }
   foreach ($variables['elements']['#issues'] as $volume => $issues) {
+    
     $iss = array();
     foreach ($issues as $name => $data) {
         $issue = $name;
@@ -50,9 +57,7 @@ function theme_ding_periodical_issues($variables) {
               $location_html .= $availability['location'];
               $location_html .= format_plural($availability['available_count'], '(1 copy home)', '(@count copies home)');
               $location_html .= '</li>';
-              
-           
-            $total_count += 1;
+              $total_count += 1;
         }
         if($reserveable_count > 0)
         {
