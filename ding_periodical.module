@@ -37,7 +37,7 @@ function theme_ding_periodical_issues($variables) {
       else
       {
           //The dates from the library system are not sortet correctly.
-          uksort($variables['elements']['#issues'][$volume], "ding_periodical_month_to_number");
+          uksort($variables['elements']['#issues'][$volume], "ding_periodical_compare_months");
       }
       
   }
