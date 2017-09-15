@@ -104,11 +104,11 @@ function ding_periodical_compare_months($a, $b) {
     // locale fix for server.
     if($tmp == "Maj")
     {
-        $tmp = "May"
+        $tmp = "May";
     }
     if($tmp1 == "Maj")
     {
-        $tmp1 = "May"
+        $tmp1 = "May";
     }
     $a = ding_periodical_month_to_number($tmp);
     $b = ding_periodical_month_to_number($tmp1);
