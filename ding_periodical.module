@@ -29,7 +29,7 @@ function theme_ding_periodical_issues($variables) {
   krsort($variables['elements']['#issues'],SORT_STRING);
   $tmp = $variables['elements']['#issues'];
   foreach ($tmp as $volume => $issues) {
-      $test = ksort($variables['elements']['#issues'][$volume],SORT_NATURAL);
+      $test = krsort($variables['elements']['#issues'][$volume],SORT_NATURAL);
   }
   foreach ($variables['elements']['#issues'] as $volume => $issues) {
     
