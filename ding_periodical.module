@@ -110,6 +110,10 @@ function ding_periodical_compare_months($a, $b) {
     {
         $tmp1 = "May";
     }
+    if($tmp1 == "Oktober")
+    {
+        $tmp1 = "October";
+    }
     $a = ding_periodical_month_to_number($tmp);
     $b = ding_periodical_month_to_number($tmp1);
 
